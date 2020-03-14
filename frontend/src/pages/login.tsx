@@ -8,13 +8,13 @@ function Login(props: { history: any }) {
 
   async function handleLogin(event: any) {
     event.preventDefault();
-    sessionStorage.setItem("teste", "t");
     try {
       const response = await api.post("/login", {
         email,
         password
       });
-      console.log(response.data.token);
+      sessionStorage.setItem("token", response.data.token);
+      history.push("/chat");
     } catch (err) {
       window.alert(err.response.data.error);
     }
@@ -40,7 +40,7 @@ function Login(props: { history: any }) {
         <button type="submit">Entrar</button>
       </form>
       <h5 onClick={() => history.push("/")}>
-        <a href="">Don't have an account? click here</a>
+        Don't have an account? click here
       </h5>
     </div>
   );

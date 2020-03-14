@@ -7,8 +7,6 @@ function Register(props: { history: any }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
-
   async function handleRegister(event: any) {
     event.preventDefault();
 
@@ -50,7 +48,7 @@ function Register(props: { history: any }) {
         <button type="submit">Entrar</button>
       </form>
       <h5 onClick={() => history.push("/login")}>
-        <a href="">Already have an account? click here</a>
+        Already have an account? click here
       </h5>
     </div>
   );

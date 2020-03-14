@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Register from "./pages/register.tsx";
 import Login from "./pages/login";
 // import Dashboard from './pages/Dashboard'
-// import New from './pages/New'
+import Chat from './pages/chat'
 
 export default function Routes() {
   return (
@@ -12,7 +12,7 @@ export default function Routes() {
       <Switch>
         <Route path="/" exact component={Register} />
         <Route path="/login" component={Login} />
-        {/* <Route path ="/new" component={New}/> */}
+        <Route path ="/chat" component={Chat}/>
       </Switch>
     </BrowserRouter>
   );
