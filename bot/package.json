@@ -1,8 +1,8 @@
 {
-  "name": "backend",
+  "name": "bot",
   "version": "1.0.0",
   "description": "",
-  "main": "loader.js",
+  "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,11 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.5.5",
-    "bcrypt": "^4.0.1",
+    "csvtojson": "^2.0.10",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.4"
+    "uuid": "^7.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
