@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useMemo, useEffect } from "react";
+import socketio from "socket.io-client";
+
 import api from "../services/api";
 
 function Chat() {
+  // const socket = socketio("http://localhost:8300");
+
+  useEffect(() => {
+    const socket = socketio("http://localhost:3333",
+    {
+      query:'token='
+    });
+  }, []);
+
   const sendMessage = async () => {
     // event.preventDefault();
     const body = {
@@ -21,7 +32,7 @@ function Chat() {
   };
   return (
     <div>
-      <h1>asssssssssssssssssssssssssssssss</h1>
+      <h1>Welcome to chat</h1>
       <button type="submit" onClick={sendMessage}>
         Send Message
       </button>
