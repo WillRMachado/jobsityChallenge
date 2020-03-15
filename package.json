@@ -4,7 +4,10 @@
   "description": "challenge for jobsity",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-backend": "npm i && cd backend && npm i && nodemon",
+    "start-frontend": "npm i && cd frontend && npm i && npm start",
+    "start-bot": "npm i && cd bot && npm i && nodemon"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,7 @@
   "bugs": {
     "url": "https://github.com/WillRMachado/jobsityChallenge/issues"
   },
-  "homepage": "https://github.com/WillRMachado/jobsityChallenge#readme"
+  "homepage": "https://github.com/WillRMachado/jobsityChallenge#readme",
+  "dependencies": {},
+  "devDependencies": {}
 }
