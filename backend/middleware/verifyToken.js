@@ -1,9 +1,12 @@
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv").config();
+
+const secretTokenKey = process.env.SECRET_TOKEN_KEY;
 
 const verifyToken = (req, res, next) => {
   const authToken = req.headers["authorization"];
   if (typeof authToken !== "undefined") {
-    jwt.verify(authToken, "secretkey", (err, authData) => {
+    jwt.verify(authToken, secretTokenKey, (err, authData) => {
       if (err) {
         console.log(err.message);
         return res

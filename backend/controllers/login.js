@@ -1,6 +1,10 @@
 const User = require("../model/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv").config();
+
+const secretTokenKey = process.env.SECRET_TOKEN_KEY;
+
 
 module.exports = {
   async show(req, res) {
@@ -15,7 +19,7 @@ module.exports = {
       bcrypt.compare(candidatePassword, dbPassword, function(err, isMatch) {
         //ANCHOR err
         if (isMatch) {
-          jwt.sign(JSON.stringify(user), "secretkey", (err, token) => {
+          jwt.sign(JSON.stringify(user), secretTokenKey, (err, token) => {
             if (err) {
               throw error1;
             }
