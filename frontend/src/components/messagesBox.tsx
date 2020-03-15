@@ -2,10 +2,14 @@ import React from "react";
 
 function MessageBox(props: { messages: any }) {
   const { messages } = props;
+  const sortedMessages = messages.sort(
+    (a: { timestamp: any }, b: { timestamp: any }) =>
+      a.timestamp > b.timestamp ? -1 : 1
+  );
   return (
     <div>
       {messages.length > 0
-        ? messages.map(
+        ? sortedMessages.map(
             (msg: {
               _id: string;
               timestamp: React.ReactNode;
@@ -13,9 +17,10 @@ function MessageBox(props: { messages: any }) {
               message: React.ReactNode;
             }) => (
               <div key={msg._id}>
-                <h1>{msg.timestamp}</h1>
-                <h1>{msg.username}</h1>
-                <h1>{msg.message}</h1>
+                <h5>{msg.timestamp}</h5>
+                <h5>{msg.username}</h5>
+                <h5>{msg.message}</h5>
+                <hr></hr>
               </div>
             )
           )

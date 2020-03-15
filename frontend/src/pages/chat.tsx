@@ -19,15 +19,11 @@ function Chat() {
   useEffect(() => {
     getMessages();
     socket.on("newMessage", (data: any) => {
-    getMessages();
-//ANCHOR
+      getMessages();
+      //ANCHOR
       // addNewMessageToDisplay(data);
     });
   }, []);
-
-  // useEffect(() => {
-  //   console.log(messageList);
-  // }, [messageList]);
 
   const addNewMessageToDisplay = (data: any) => {
     let newList: Array<any> = messageList;
@@ -46,6 +42,7 @@ function Chat() {
 
   const sendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setMessage("");
     const body = {
       message: message
     };
@@ -61,8 +58,7 @@ function Chat() {
 
   return (
     <div>
-      <h1>Welcome to chat</h1>
-      <MessageBox messages={messageList} />
+      <h1>Welcome to Jobsity chat example</h1>
       <form onSubmit={event => sendMessage(event)}>
         <input
           type="text"
@@ -70,6 +66,7 @@ function Chat() {
           onChange={e => setMessage(e.target.value)}
         />
         <button type="submit">Send Message</button>
+        <MessageBox messages={messageList} />
       </form>
     </div>
   );

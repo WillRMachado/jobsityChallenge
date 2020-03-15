@@ -1,7 +1,5 @@
 const Message = require("../model/Message");
-// const io = require("../config/server");
 const socketio = require("socket.io");
-// const bot = require("../../bot");
 const request = require("request");
 const dotenv = require("dotenv").config();
 
@@ -49,8 +47,6 @@ const messageHandler = {
     const lastFiftyMessages = await Message.find()
       .sort({ timestamp: 1 })
       .limit(50);
-    console.log(lastFiftyMessages);
-    // const lastFewMessages = allMessages.slice(Math.max(arr.length - 5, 0))
     return res.json(lastFiftyMessages);
   }
 };
