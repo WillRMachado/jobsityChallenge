@@ -10,6 +10,7 @@ const verifyToken = (req, res, next) => {
           .status(403)
           .json({ error: "error, could not authenticate token" });
       } else {
+        req.body.username = authData.username;
         next();
       }
     });

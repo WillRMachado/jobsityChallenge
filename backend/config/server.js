@@ -32,22 +32,17 @@ const callback = function() {
 //   res.render("index.html");
 // });
 
-
-
-
 const server = http.Server(app);
 io = socketio(server);
 
 io.on("connection", socket => {
   console.log(`socket connected: ${socket.id}`);
-  // socket.emit("previousMessages", messages);
-  // socket.on("sendMessage", data => {
-  //   console.log(data);
-  //   messages.push(data);
-  //   socket.broadcast.emit("receivedMessage", data);
+  // socket.emit("message", "messages");
+  // socket.on("vai", data => {
+  //   console.log("v", data);
+  //   socket.broadcast.emit("message", "messages");
   // });
 });
-
 
 app.use(cors({ origin: "*", credentials: false }));
 
@@ -55,9 +50,11 @@ app.use(express.json());
 
 app.use(routes);
 
-
-
-
 server.listen(port, callback);
 
-module.exports = server;
+function socketioCalls(data) {
+  io.sockets.broadcast.emit("newMessage", data);
+}
+exports.server = server;
+
+exports.socketioCalls = socketioCalls;
