@@ -26,7 +26,7 @@ const download = (stockName, cb) => {
 };
 
 //forwards csv file data to rabbitMQ
-const processData = dataPath => {
+const processData = (dataPath, chatChoice) => {
   const messageSender = require("./messageSender.js");
   const csv = require("csvtojson");
   const fs = require("fs");
@@ -35,7 +35,7 @@ const processData = dataPath => {
     .fromFile(dataPath)
     .then(jsonObj => {
       const jsonData = jsonObj;
-      messageSender.send(jsonData[0].Symbol, jsonData[0].Close);
+      messageSender.send(jsonData[0].Symbol, jsonData[0].Close, chatChoice);
       fs.unlink(dataPath, err => {
         if (err) throw err;
       });

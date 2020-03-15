@@ -1,13 +1,11 @@
-const bot = stockName => {
+const bot = (stockName, chatChoice) => {
   const getStockInfo = require("./utils/getStockInfo");
 
   const cbDownload = dataPath => {
-    getStockInfo.processData(dataPath);
+    getStockInfo.processData(dataPath, chatChoice);
   };
 
   getStockInfo.download(String(stockName), cbDownload);
-  // return null
 };
 
-// bot("aapl.us");
 exports.bot = bot;
