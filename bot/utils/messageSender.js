@@ -20,15 +20,21 @@ const send = (stock, price, chatChoice) => {
           chatChoice: chatChoice,
           message: `Invalid Request for stock: ${stock}`
         };
-        msg = JSON.stringify(msg);
+        // msg = JSON.stringify(msg);
+      } else if (stock === "Invalid Request") {
+        msg = {
+          name: "BOT",
+          chatChoice: chatChoice,
+          message: "Invalid Request Call"
+        };
       } else {
         msg = {
           name: "BOT",
           chatChoice: chatChoice,
           message: text
         };
-        msg = JSON.stringify(msg);
       }
+      msg = JSON.stringify(msg);
 
       channel.assertQueue(queue, {
         durable: false

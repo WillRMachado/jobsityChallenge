@@ -35,7 +35,16 @@ const processData = (dataPath, chatChoice) => {
     .fromFile(dataPath)
     .then(jsonObj => {
       const jsonData = jsonObj;
-      messageSender.send(jsonData[0].Symbol, jsonData[0].Close, chatChoice);
+      let stockName = "";
+      let stockValue = "";
+      if (jsonData[0]) {
+        stockName = jsonData[0].Symbol;
+        stockValue = jsonData[0].Close;
+      }else{
+        stockName = 'Invalid Request';
+        stockValue = '';
+      }
+      messageSender.send(stockName, stockValue, chatChoice);
       fs.unlink(dataPath, err => {
         if (err) throw err;
       });
