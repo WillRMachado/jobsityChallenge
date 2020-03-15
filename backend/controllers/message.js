@@ -14,8 +14,9 @@ const messageHandler = {
       switch (true) {
         case message.startsWith("/stock="):
           const stockName = message.slice(7);
+          const chatChoice = message.slice(7);//ANCHOR
           request(
-            `${botHost}:${botPort}/getStock?stockName=${stockName}`,
+            `${botHost}:${botPort}/getStock?stockName=${stockName}?chatChoice=${chatChoice}`,
             function(error, response, body) {
               if (!error && response.statusCode == 200) {
                 console.log(body);
@@ -29,7 +30,7 @@ const messageHandler = {
       }
       return null;
     } else {
-      if (req.query.chat === "secondaryChat") {
+      if (req.headers.chat === "secondaryChat") {
         const newMessage = await Message.SecondaryChat.create({
           username,
           message,
@@ -58,7 +59,7 @@ const messageHandler = {
   },
 
   async index(req, res) {
-    if (req.query.chat === "secondaryChat") {
+    if (req.headers.chat === "secondaryChat") {
       const lastFiftyMessages = await Message.SecondaryChat.find()
         .sort({ timestamp: 1 })
         .limit(50);

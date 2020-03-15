@@ -1,4 +1,4 @@
-const bot = stockName => {
+const bot = (stockName, chatChoice) => {
   const getStockInfo = require("./utils/getStockInfo");
 
   const cbDownload = dataPath => {
