@@ -29,14 +29,13 @@ const messageHandler = {
       }
       return null;
     } else {
-      console.log(req.query);
       if (req.query.chat === "secondaryChat") {
         const newMessage = await Message.SecondaryChat.create({
           username,
           message,
           timestamp: Date.now()
         });
-        io.sockets.emit("newMessage", {
+        io.sockets.emit("newMessageSecondaryChat", {
           username,
           message,
           timestamp: Date.now()
@@ -59,10 +58,17 @@ const messageHandler = {
   },
 
   async index(req, res) {
-    const lastFiftyMessages = await Message.MainChat.find()
-      .sort({ timestamp: 1 })
-      .limit(50);
-    return res.json(lastFiftyMessages);
+    if (req.query.chat === "secondaryChat") {
+      const lastFiftyMessages = await Message.SecondaryChat.find()
+        .sort({ timestamp: 1 })
+        .limit(50);
+      return res.json(lastFiftyMessages);
+    } else {
+      const lastFiftyMessages = await Message.MainChat.find()
+        .sort({ timestamp: 1 })
+        .limit(50);
+      return res.json(lastFiftyMessages);
+    }
   }
 };
 
