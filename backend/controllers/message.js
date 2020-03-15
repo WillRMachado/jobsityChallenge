@@ -46,8 +46,12 @@ const messageHandler = {
   },
 
   async index(req, res) {
-    const allMessages = await Message.find();
-    return res.json(allMessages);
+    const lastFiftyMessages = await Message.find()
+      .sort({ timestamp: 1 })
+      .limit(50);
+    console.log(lastFiftyMessages);
+    // const lastFewMessages = allMessages.slice(Math.max(arr.length - 5, 0))
+    return res.json(lastFiftyMessages);
   }
 };
 
