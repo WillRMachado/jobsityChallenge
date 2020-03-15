@@ -30,9 +30,6 @@ function Chat() {
     };
     try {
       const response = await api.post("/message", body, headers);
-      // socket.emit("vai", "teste");
-      //   sessionStorage.setItem("token", response.data.token);
-      //   history.push("/chat");
     } catch (err) {
       console.log(err.response.data.error);
     }

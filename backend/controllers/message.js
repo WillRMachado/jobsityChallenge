@@ -5,8 +5,12 @@ const socketio = require("socket.io");
 const messageHandler = {
   async store(req, res) {
     const { username, message } = req.body;
-    const newMessage = await Message.create({ username, message });
-    io.sockets.emit("newMessage", { username, message });
+    const newMessage = await Message.create({
+      username,
+      message,
+      timestamp: Date.now()
+    });
+    io.sockets.emit("newMessage", { username, message, timestamp: Date.now() });
     return res.json(newMessage);
   },
 
