@@ -3,9 +3,11 @@ import socketio from "socket.io-client";
 import settings from "../settings.json";
 
 import api from "../services/api";
+import MessageBox from "../components/messagesBox";
 
 function Chat() {
   const [message, setMessage] = useState("");
+  const [messageList, setMessageList] = useState(Array());
 
   const token = sessionStorage.getItem("token");
 
@@ -15,10 +17,32 @@ function Chat() {
   );
 
   useEffect(() => {
+    getMessages();
     socket.on("newMessage", (data: any) => {
-      console.log(data);
+    getMessages();
+//ANCHOR
+      // addNewMessageToDisplay(data);
     });
   }, []);
+
+  // useEffect(() => {
+  //   console.log(messageList);
+  // }, [messageList]);
+
+  const addNewMessageToDisplay = (data: any) => {
+    let newList: Array<any> = messageList;
+    newList.push(data);
+    console.log(newList);
+  };
+
+  const getMessages = async () => {
+    const apiMsg = await api.get("/message");
+    const formatedDateMessageList = apiMsg.data.map((msg: any) => {
+      msg.timestamp = new Date(msg.timestamp).toUTCString();
+      return msg;
+    });
+    setMessageList(formatedDateMessageList);
+  };
 
   const sendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,9 +58,11 @@ function Chat() {
       console.log(err.response.data.error);
     }
   };
+
   return (
     <div>
       <h1>Welcome to chat</h1>
+      <MessageBox messages={messageList} />
       <form onSubmit={event => sendMessage(event)}>
         <input
           type="text"
