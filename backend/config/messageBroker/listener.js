@@ -1,6 +1,5 @@
 var amqp = require("amqplib/callback_api");
 const dotenv = require("dotenv").config();
-// const Message = require("../../model/Message");
 const message = require("../../controllers/message");
 
 const amqpUri = process.env.AMQP_ADDRESS;
