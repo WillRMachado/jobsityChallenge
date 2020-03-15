@@ -9,17 +9,17 @@ const botHost = process.env.BOT_ADDRESS;
 const messageHandler = {
   async store(req, res) {
     const { username, message } = req.body;
+    const chatChoice = req.headers.chat;
     if (message.charAt(0) === "/") {
       //Chat commands
       switch (true) {
         case message.startsWith("/stock="):
           const stockName = message.slice(7);
-          const chatChoice = message.slice(7);//ANCHOR
           request(
-            `${botHost}:${botPort}/getStock?stockName=${stockName}?chatChoice=${chatChoice}`,
+            `${botHost}:${botPort}/getStock?stockName=${stockName}&chatChoice=${chatChoice}`,
             function(error, response, body) {
               if (!error && response.statusCode == 200) {
-                console.log(body);
+                console.log("bot called with body: ", body);
               }
             }
           );
@@ -28,9 +28,12 @@ const messageHandler = {
           console.log("invalid command");
           break;
       }
-      return null;
+      if (res) {
+        return res.json({ commandStatus: "sent to bot" });
+      }
     } else {
-      if (req.headers.chat === "secondaryChat") {
+      //standard chat
+      if (chatChoice === "secondaryChat") {
         const newMessage = await Message.SecondaryChat.create({
           username,
           message,
@@ -41,7 +44,9 @@ const messageHandler = {
           message,
           timestamp: Date.now()
         });
-        return res.json(newMessage);
+        if (res) {
+          return res.json(newMessage);
+        }
       } else {
         const newMessage = await Message.MainChat.create({
           username,
@@ -53,13 +58,16 @@ const messageHandler = {
           message,
           timestamp: Date.now()
         });
-        return res.json(newMessage);
+        if (res) {
+          return res.json(newMessage);
+        }
       }
     }
   },
 
   async index(req, res) {
-    if (req.headers.chat === "secondaryChat") {
+    const chatChoice = req.headers.chat;
+    if (chatChoice === "secondaryChat") {
       const lastFiftyMessages = await Message.SecondaryChat.find()
         .sort({ timestamp: 1 })
         .limit(50);

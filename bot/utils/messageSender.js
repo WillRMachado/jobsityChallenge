@@ -1,8 +1,7 @@
-const send = (stock, price) => {
+const send = (stock, price, chatChoice) => {
   const amqp = require("amqplib/callback_api");
-
   const text = `${stock} quote is ${price} per share`;
- 
+
   amqp.connect("amqp://localhost", function(error0, connection) {
     if (error0) {
       throw error0;
@@ -18,12 +17,14 @@ const send = (stock, price) => {
       if (price === "N/D") {
         msg = {
           name: "BOT",
+          chatChoice: chatChoice,
           message: `Invalid Request for stock: ${stock}`
         };
         msg = JSON.stringify(msg);
       } else {
         msg = {
           name: "BOT",
+          chatChoice: chatChoice,
           message: text
         };
         msg = JSON.stringify(msg);

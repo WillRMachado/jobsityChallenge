@@ -11,6 +11,9 @@ const postBotMessage = async jsonMsg => {
     body: {
       username: jsonMsg.name,
       message: jsonMsg.message
+    },
+    headers: {
+      chat: jsonMsg.chatChoice
     }
   });
 };
