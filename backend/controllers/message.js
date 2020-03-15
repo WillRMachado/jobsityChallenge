@@ -1,9 +1,12 @@
 const Message = require("../model/Message");
+// const io = require("../config/server");
+const socketio = require("socket.io");
 
 const messageHandler = {
   async store(req, res) {
     const { username, message } = req.body;
     const newMessage = await Message.create({ username, message });
+    io.sockets.emit("newMessage", { username, message });
     return res.json(newMessage);
   },
 

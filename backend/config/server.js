@@ -3,13 +3,16 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const path = require("path");
+const socketio = require("socket.io");
+const http = require("http");
 
 dotenv.config();
 
 const port = process.env.PORT;
 const mongoUri = process.env.MONGO_URI;
 
-const server = express();
+const app = express();
 
 mongoose.connect(mongoUri, {
   useUnifiedTopology: true,
@@ -20,12 +23,38 @@ const callback = function() {
   console.log(`server online, port: ${port}`);
 };
 
-server.use(cors());
+//uncomment lines bellow to enable Views
+// app.use(express.static(path.join(__dirname, "../public")));
+// app.set("views", path.join(__dirname, "../public"));
+// app.engine("html", require("ejs").renderFile);
+// app.set("view engine", "html");
+// app.use("/", (req, res) => {
+//   res.render("index.html");
+// });
 
-server.use(express.json());
+const server = http.Server(app);
+io = socketio(server);
 
-server.use(routes);
+io.on("connection", socket => {
+  console.log(`socket connected: ${socket.id}`);
+  // socket.emit("message", "messages");
+  // socket.on("vai", data => {
+  //   console.log("v", data);
+  //   socket.broadcast.emit("message", "messages");
+  // });
+});
+
+app.use(cors({ origin: "*", credentials: false }));
+
+app.use(express.json());
+
+app.use(routes);
 
 server.listen(port, callback);
 
-module.exports = server;
+function socketioCalls(data) {
+  io.sockets.broadcast.emit("newMessage", data);
+}
+exports.server = server;
+
+exports.socketioCalls = socketioCalls;
