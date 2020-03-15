@@ -27,10 +27,10 @@ const send = (stock, price) => {
 
       console.log(" [x] Sent %s", msg);
     });
-    setTimeout(function() {
-      connection.close();
-      process.exit(0);
-    }, 500);
+    // setTimeout(function() {
+    //   connection.close();
+    //   process.exit(0);
+    // }, 500);
   });
 
 };

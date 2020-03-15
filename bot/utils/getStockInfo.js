@@ -25,7 +25,7 @@ const download = (stockName, cb) => {
     });
 };
 
-//fowards csv file data to rabbitMQ
+//forwards csv file data to rabbitMQ
 const processData = dataPath => {
   const messageSender = require("./messageSender.js");
   const csv = require("csvtojson");

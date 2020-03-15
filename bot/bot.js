@@ -6,6 +6,7 @@ const bot = stockName => {
   };
 
   getStockInfo.download(String(stockName), cbDownload);
+  // return null
 };
 
 // bot("aapl.us");

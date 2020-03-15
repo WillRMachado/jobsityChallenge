@@ -1,16 +1,18 @@
 var amqp = require("amqplib/callback_api");
-const dotenv = require("dotenv");
-const Message = require("../../model/Message");
+const dotenv = require("dotenv").config();
+// const Message = require("../../model/Message");
+const message = require("../../controllers/message");
 
 const amqpUri = process.env.AMQP_ADDRESS;
-var queue = process.env.QUEUE_NAME;
+const queue = process.env.QUEUE_NAME;
 
 const postBotMessage = async jsonMsg => {
-  const newMessage = await Message.create({
-    username: jsonMsg.name,
-    message: jsonMsg.message
+  message.store({
+    body: {
+      username: jsonMsg.name,
+      message: jsonMsg.message
+    }
   });
-  console.log(newMessage);
 };
 
 amqp.connect(amqpUri, function(error0, connection) {
