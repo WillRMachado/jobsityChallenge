@@ -23,15 +23,11 @@ const callback = function() {
   console.log(`server online, port: ${port}`);
 };
 
-
+//uncomment lines bellow to enable Views
 // app.use(express.static(path.join(__dirname, "../public")));
-
 // app.set("views", path.join(__dirname, "../public"));
-
 // app.engine("html", require("ejs").renderFile);
-
 // app.set("view engine", "html");
-
 // app.use("/", (req, res) => {
 //   res.render("index.html");
 // });
@@ -43,8 +39,7 @@ const server = http.Server(app);
 io = socketio(server);
 
 io.on("connection", socket => {
-  console.log(`socket conectado: ${socket.id}`);
-
+  console.log(`socket connected: ${socket.id}`);
   // socket.emit("previousMessages", messages);
   // socket.on("sendMessage", data => {
   //   console.log(data);

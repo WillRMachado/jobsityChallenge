@@ -4,13 +4,18 @@ import socketio from "socket.io-client";
 import api from "../services/api";
 
 function Chat() {
-  // const socket = socketio("http://localhost:8300");
+  const token = sessionStorage.getItem("token");
+
+  const socket = useMemo(
+    () =>
+      socketio("http://localhost:3333", {
+        query: { user_id: token }
+      }),
+    [token]
+  );
 
   useEffect(() => {
-    const socket = socketio("http://localhost:3333",
-    {
-      query:'token='
-    });
+    const socket = socketio("http://localhost:3333");
   }, []);
 
   const sendMessage = async () => {
