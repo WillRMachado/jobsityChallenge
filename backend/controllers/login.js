@@ -18,6 +18,9 @@ module.exports = {
         //ANCHOR err
         if (isMatch) {
           jwt.sign(JSON.stringify(user), "secretkey", (err, token) => {
+            if (err) {
+              throw error1;
+            }
             res.json({ token });
           });
           return isMatch;
@@ -26,7 +29,6 @@ module.exports = {
         }
       });
     };
-
 
     if (!user) {
       return res.status(400).json({ error: "user does not exist" });

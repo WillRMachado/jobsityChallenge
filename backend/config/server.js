@@ -37,11 +37,6 @@ io = socketio(server);
 
 io.on("connection", socket => {
   console.log(`socket connected: ${socket.id}`);
-  // socket.emit("message", "messages");
-  // socket.on("vai", data => {
-  //   console.log("v", data);
-  //   socket.broadcast.emit("message", "messages");
-  // });
 });
 
 app.use(cors({ origin: "*", credentials: false }));

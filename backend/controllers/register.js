@@ -25,7 +25,6 @@ module.exports = {
       bcrypt.hash(password, saltRounds, async function(err, hash) {
         if (err) return next(err);
         user = await User.create({ username, email, password: hash });
-        // console.log(user);
         return res.status(201).json({ userStatus: "created" });
       });
     }

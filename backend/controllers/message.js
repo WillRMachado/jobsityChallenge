@@ -12,7 +12,7 @@ const messageHandler = {
     if (message.charAt(0) === "/") {
       //Chat commands
       switch (true) {
-        case message.startsWith("/stock="): //ANCHOR
+        case message.startsWith("/stock="):
           const stockName = message.slice(7);
           request(
             `${botHost}:${botPort}/getStock?stockName=${stockName}`,
