@@ -35,7 +35,6 @@ const processData = (dataPath, chatChoice) => {
     .fromFile(dataPath)
     .then(jsonObj => {
       const jsonData = jsonObj;
-      console.log(dataPath);
       let stockName = "";
       let stockValue = "";
       if (jsonData[0]) {

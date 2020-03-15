@@ -14,7 +14,6 @@ const send = (stock, price, chatChoice) => {
       var queue = "BOT";
 
       var msg = "";
-      console.log(stock);
       if (price === "N/D") {
         msg = {
           name: "BOT",
