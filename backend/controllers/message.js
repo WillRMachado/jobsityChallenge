@@ -11,7 +11,7 @@ const messageHandler = {
       timestamp: Date.now()
     });
     io.sockets.emit("newMessage", { username, message, timestamp: Date.now() });
-    return res.json(newMessage);
+    return null;
   },
 
   async index(req, res) {
