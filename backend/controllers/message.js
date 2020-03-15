@@ -29,22 +29,37 @@ const messageHandler = {
       }
       return null;
     } else {
-      const newMessage = await Message.create({
-        username,
-        message,
-        timestamp: Date.now()
-      });
-      io.sockets.emit("newMessage", {
-        username,
-        message,
-        timestamp: Date.now()
-      });
-      return null;
+      console.log(req.query);
+      if (req.query.chat === "secondaryChat") {
+        const newMessage = await Message.SecondaryChat.create({
+          username,
+          message,
+          timestamp: Date.now()
+        });
+        io.sockets.emit("newMessage", {
+          username,
+          message,
+          timestamp: Date.now()
+        });
+        return res.json(newMessage);
+      } else {
+        const newMessage = await Message.MainChat.create({
+          username,
+          message,
+          timestamp: Date.now()
+        });
+        io.sockets.emit("newMessage", {
+          username,
+          message,
+          timestamp: Date.now()
+        });
+        return res.json(newMessage);
+      }
     }
   },
 
   async index(req, res) {
-    const lastFiftyMessages = await Message.find()
+    const lastFiftyMessages = await Message.MainChat.find()
       .sort({ timestamp: 1 })
       .limit(50);
     return res.json(lastFiftyMessages);

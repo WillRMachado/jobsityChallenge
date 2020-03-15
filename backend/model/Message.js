@@ -6,4 +6,7 @@ const MessageSchema = new mongoose.Schema({
   timestamp: Number
 });
 
-module.exports = mongoose.model("Message", MessageSchema);
+module.exports = {
+  MainChat: mongoose.model("MainChatMessage", MessageSchema),
+  SecondaryChat: mongoose.model("SecondaryChatMessage", MessageSchema)
+};
